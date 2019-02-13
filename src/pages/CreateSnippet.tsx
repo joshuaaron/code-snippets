@@ -30,7 +30,7 @@ class CreateSnippet extends Component<IProps, {}> {
 	}
 
 	handleCreate = () => {
-		this.props.createSnippet({ id: 2, title: this.state.content })
+		// this.props.createSnippet({ id: 2, title: this.state.content })
 	}
 
 	render() {
@@ -55,9 +55,9 @@ class CreateSnippet extends Component<IProps, {}> {
 	}
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatchAlias)
+// const mapDispatchToProps = (dispatch: ThunkDispatchAlias)
 
-export default connect(null, mapDispatchToProps)(CreateSnippet);
+export default connect()(CreateSnippet);
 
 
 /**

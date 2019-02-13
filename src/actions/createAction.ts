@@ -8,10 +8,10 @@ export type ThunkDispatchAlias = ThunkDispatch<IStore, any, AnyAction>;
 
 
 export interface Action<T extends string> {
-	type: T
+	type: T;
 }
 export interface ActionWithPayload<T extends string, P> extends Action<T> {
-	payload: P
+	payload: P;
 }
 export interface ActionWithPayloadAndError<T extends string, P> extends ActionWithPayload<T, P> {
 	error: boolean | null | undefined;
@@ -30,13 +30,4 @@ export function createThunkAction<R, T extends string, P>(type: T, payload?: P) 
 		return payload === undefined ? dispatch({ type }) : dispatch({ type, payload })
 	}
 }
-
-export function createAsyncThunkAction<R, T extends string>(type: T): ThunkResult<R>
-export function createAsyncThunkAction<R, T extends string, P>(type: T, payload: P): ThunkResult<R>
-export function createAsyncThunkAction<R, T extends string, P>(type: T, payload?: P) {
-	return async (dispatch: Dispatch) => {
-		return payload === undefined ? dispatch({ type }) : dispatch({ type, payload })
-	}
-}
-
 
