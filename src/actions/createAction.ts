@@ -13,9 +13,10 @@ export interface Action<T extends string> {
 export interface ActionWithPayload<T extends string, P> extends Action<T> {
 	payload: P;
 }
-export interface ActionWithPayloadAndError<T extends string, P> extends ActionWithPayload<T, P> {
-	error: boolean | null | undefined;
-}
+
+// export interface ActionWithPayloadAndError<T extends string, P> extends ActionWithPayload<T, P> {
+// 	error: boolean | null | undefined;
+// }
 
 export function createAction<T extends string>(type: T): Action<T>;
 export function createAction<T extends string, P>(type: T, payload: P): ActionWithPayload<T, P>
