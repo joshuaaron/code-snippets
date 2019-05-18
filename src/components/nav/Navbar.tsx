@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import SignedInLinks from 'src/pages/SignedInLinks';
-import SignedOutLinks from 'src/pages/SignedOutLinks';
+import SignedInLinks from '../../pages/SignedInLinks';
+import SignedOutLinks from '../../pages/SignedOutLinks';
 
 const Navbar = () => (
 	<Header>

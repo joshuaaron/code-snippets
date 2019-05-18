@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createSnippet } from 'src/actions/snippetsActions';
-import { ThunkDispatchAlias } from 'src/actions/createAction';
-import { ISnippet } from 'src/interfaces';
+import { addSnippet, deleteSnippet } from '../actions/snippetsActions';
 
 interface IProps {
 }
 
-class CreateSnippet extends Component<IProps, {}> {
+class CreateSnippet extends Component<IProps> {
 	state = {
 		title: '',
 		content: '',
+		id: '',
 	}
 
-	handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+	handleTitleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		this.setState({
 			[target.id]: target.value
 		})
@@ -30,7 +29,19 @@ class CreateSnippet extends Component<IProps, {}> {
 	}
 
 	handleCreate = () => {
-		// this.props.createSnippet({ id: 2, title: this.state.content })
+		const random = Math.floor((Math.random() * 1) * 8000);
+		addSnippet.dispatch({ id: random, title: this.state.title })
+	}
+
+	handleDeleteChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({
+			[target.id]: target.value
+		})
+	}
+
+	handleDelete = () => {
+		console.log(this.state)
+		deleteSnippet.dispatch({ id: parseInt(this.state.id, 10) });
 	}
 
 	render() {
@@ -40,7 +51,7 @@ class CreateSnippet extends Component<IProps, {}> {
 					<h5>Sign Up</h5>
 					<div className="field">
 						<label htmlFor="title">Title</label>
-						<input type="text" id="title" onChange={this.handleChange} />
+						<input type="text" id="title" onChange={this.handleTitleChange} />
 					</div>
 					<hr/>
 					<div className="field">
@@ -48,6 +59,11 @@ class CreateSnippet extends Component<IProps, {}> {
 						<textarea id="content" onChange={this.handleContentChange} />
 					</div>
 					<hr/>
+					<div className="field">
+						<label htmlFor="delete">ID To Delete</label>
+						<input type="id" id="id" onChange={this.handleDeleteChange} />
+						<button onClick={this.handleDelete}>Delete</button>
+					</div>
 					<button type='submit' onClick={this.handleCreate}>Create</button>
 				</form>
 			</div>

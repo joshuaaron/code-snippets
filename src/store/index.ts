@@ -6,7 +6,8 @@ import { createBrowserHistory } from 'history';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { reduxFirestore, getFirestore } from 'redux-firestore';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
-import firebase from 'src/config/firebase';
+import firebase from '../config/firebase';
+import { setStore } from '../interfaces';
 
 export const history = createBrowserHistory();
 
@@ -29,4 +30,6 @@ const store = createStore(
 	)
 );
 
+// instantiate a store object for access to dispatch inside defineAction.
+setStore(store);
 export default store;

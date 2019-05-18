@@ -1,4 +1,6 @@
-import * as snippetActions from 'src/actions/snippetsActions';
+import ReducerSwitch from '../helpers/reducerSwitch';
+import { addSnippet, deleteSnippet } from '../actions/snippetsActions';
+import { ISnippet } from '../interfaces';
 
 const initState = [
 	{id: 1, title: 'Title 1'},
@@ -6,27 +8,27 @@ const initState = [
 	{id: 3, title: 'Title 3'},
 ];
 
-const snippetReducer = (state = initState, action: snippetActions.Actions) => {
-	const newId = state.length + 1;
-	switch(action.type) {
-		case snippetActions.ADD_SNIPPET:
-			return [
-				...state,
-				{id: newId, title: `Title ${newId}`}
-			];
-		case snippetActions.CREATE_SNIPPET:
-			return [
-				...state,
-				{id: newId, title: action.payload}
-			]
-		case snippetActions.DELETE_SNIPPET:
-			return [
-				...state.slice(0, action.payload),
-				...state.slice(action.payload + 1)
-			]
-		default:
-			return state;
-	}
-}
+const reducer = new ReducerSwitch<ISnippet[]>();
 
-export default snippetReducer;
+reducer.caseAction({
+	action: addSnippet,
+	handler: (state, payload) => {
+		const { id, title } = payload;
+		return [
+			...state,
+			{
+				id,
+				title,
+			}
+		]
+	}
+});
+
+reducer.caseAction({
+	action: deleteSnippet,
+	handler: (state, payload) => {
+		return state.filter(snippet => snippet.id !== payload.id);
+	}
+})
+
+export default reducer.getReducerFunction(initState);
