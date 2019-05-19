@@ -15,11 +15,11 @@ export class ReducerSwitch<S> {
     [type: string]: (state: S, action: IAction) => S,
   };
 
-  caseAction<PARAMS extends object, PAYLOAD extends object>({
+  caseAction<PAYLOAD extends object>({
     action,
     handler
   }: {
-    action: IDefinedAction<PARAMS, PAYLOAD>,
+    action: IDefinedAction<PAYLOAD>,
     handler(state: S, payloadData: PAYLOAD): S,
   }) {
     const { type } = action;

@@ -7,17 +7,17 @@ export interface IAction {
 
 export interface IDefinedActionBase<P extends object> {
   type: string;
-  payloadType?: P; // can be used in funcs as typeof <action>.payloadType for ease of types
+  payloadType?: P; // can be used in funcs as typeof <action>.payloadType for ease of types on big data sets
   getPayload: (action: { type: string, payload: any }) => P;
 }
 
-export interface IDefinedAction<PARAMS extends object, PAYLOAD extends object> extends IDefinedActionBase<PAYLOAD> {
-  dispatch: (params: PARAMS) => Promise<PAYLOAD>;
+export interface IDefinedAction<PAYLOAD extends object> extends IDefinedActionBase<PAYLOAD> {
+  dispatch: (params: PAYLOAD) => Promise<PAYLOAD>;
 }
 
 export const defineAction = <PAYLOAD extends object>(
   type: string,
-): IDefinedAction<PAYLOAD, PAYLOAD> => ({
+): IDefinedAction<PAYLOAD> => ({
   type,
   dispatch: (payload: PAYLOAD) => {
     const dispatch = getStore().dispatch;
