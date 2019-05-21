@@ -15,6 +15,13 @@ export interface IDefinedAction<PAYLOAD extends object> extends IDefinedActionBa
   dispatch: (params: PAYLOAD) => Promise<PAYLOAD>;
 }
 
+export interface IDefinedActionAsync<PAYLOAD extends object> extends IDefinedActionBase<PAYLOAD> {
+  typePending: string;
+  typeFulfilled: string;
+  typeRejected: string;
+  dispatch: (params: PAYLOAD, onCompleted?: (payload: PAYLOAD) => void) => Promise<PAYLOAD>;
+}
+
 export const defineAction = <PAYLOAD extends object>(
   type: string,
 ): IDefinedAction<PAYLOAD> => ({

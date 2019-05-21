@@ -6,7 +6,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import { Global } from '@emotion/core';
 import store, { history } from './store';
 import { routes, IRoute } from './routes';
-import Navbar from './components/nav/Navbar';
+import Navbar from './components/Nav/Navbar';
 import { globalStyles } from './styles/globalStyles';
 
 const getRoutes = (routes: IRoute[]) => (
