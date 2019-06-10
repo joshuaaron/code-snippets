@@ -1,4 +1,5 @@
 import { getStore } from '../interfaces/IStore';
+import { string } from 'prop-types';
 
 export interface IAction {
   type: string;

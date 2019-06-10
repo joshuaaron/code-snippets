@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 export const globalStyles = () => css`
 	html {
 		box-sizing: border-box;
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	*, *::before, *::after {

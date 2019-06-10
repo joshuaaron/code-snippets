@@ -11,7 +11,7 @@ class CreateSnippet extends Component<IProps> {
 		id: '',
 	}
 
-	handleFieldChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+	handleFieldChange = ({ target }: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
 		this.setState({
 			[target.id]: target.value
 		})

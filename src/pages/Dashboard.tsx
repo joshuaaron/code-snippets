@@ -4,12 +4,15 @@ import { IStore, ISnippet } from '../interfaces';
 import Notifications from '../components/Notifications/Notifications';
 import SnippetList from '../components/Snippets/SnippetList';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 interface IStateProps {
 	snippets: ISnippet[];
 }
 
-const mapStateToProps = (state: IStore): IStateProps => {
+const mapStateToProps = (state: any): IStateProps => {
+	console.log(state)
 	return {
 		snippets: state.snippets
 	}
@@ -33,4 +36,7 @@ const Container = styled('div')({
 	}
 })
 
-export default connect(mapStateToProps)(Dashboard);
+export default compose<any>(
+	firestoreConnect(['snippets']),
+	connect(mapStateToProps),
+)(Dashboard);

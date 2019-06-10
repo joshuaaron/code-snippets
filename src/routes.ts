@@ -1,6 +1,7 @@
 import Dashboard from './pages/Dashboard';
 import Categories from './pages/Categories';
 import CreateSnippet from './pages/CreateSnippet';
+import CreateNew from './pages/CreateNew';
 import AllPosts from './pages/AllPosts';
 import SnippetDetails from './components/snippets/SnippetDetails';
 import { RouteComponentProps } from 'react-router-dom';
@@ -32,17 +33,17 @@ export const routes: IRoute[] = [
 	},
 	{
 		path: '/create',
-		component: CreateSnippet
+		component: CreateNew
 	},
 	{
 		path: '/posts',
 		exact: true,
 		component: AllPosts
 	},
-	{
-		path: '/posts/:id', 
-		component: SnippetDetails
-	},
+	// {
+	// 	path: '/posts/:id', 
+	// 	component: SnippetDetails
+	// },
 	{
 		path: '/signin',
 		component: Signin

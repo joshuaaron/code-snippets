@@ -1,11 +1,11 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from 'firebase/app';  // core functionality
+import 'firebase/firestore'; // database
+import 'firebase/auth'; // for working with authentication
 
 // Initialize Firebase
 const config = {
-	apiKey: "AIzaSyDlrqn_dzmtzk7wiNFQIfIEdaihh3ojQD0",
-	authDomain: "codespecks.firebaseapp.com",
+	apiKey: "AIzaSyDlrqn_dzmtzk7wiNFQIfIEdaihh3ojQD0",  // our project can identify which project on the backend to connect to
+	authDomain: "codespecks.firebaseapp.com", // 
 	databaseURL: "https://codespecks.firebaseio.com",
 	projectId: "codespecks",
 	storageBucket: "codespecks.appspot.com",
@@ -13,14 +13,14 @@ const config = {
 };
 
 firebase.initializeApp(config);
-firebase.firestore();
+firebase.firestore(); // initialize firestore database
 
 export default firebase;
 
 /**
  * Firestore is a NoSQL database
  * Deals with collections and document
- * Collection of documents that belond together
+ * Collection of documents that belong together
  * 
  * In this project, one collection will be a snippet
  * in that collection we'd have a series of diff documents
