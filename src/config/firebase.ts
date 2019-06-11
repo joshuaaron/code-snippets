@@ -12,8 +12,12 @@ const config = {
 	messagingSenderId: "135652430988"
 };
 
-firebase.initializeApp(config);
-firebase.firestore(); // initialize firestore database
+try {
+	firebase.initializeApp(config);
+	firebase.firestore(); // initialize firestore database
+} catch (err) {
+	console.log("Error Initializing Firebase");
+}
 
 export default firebase;
 

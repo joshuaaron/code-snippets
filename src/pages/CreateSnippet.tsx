@@ -20,12 +20,12 @@ class CreateSnippet extends Component<IProps> {
 	handleSubmit = (e: React.FormEvent) => e.preventDefault();
 
 	handleCreate = () => {
-		const random = Math.floor((Math.random() * 1) * 8000);
+		const random = `${Math.floor((Math.random() * 1) * 8000)}`;
 		addSnippet.dispatch({ id: random, title: this.state.title })
 	}
 
 	handleDelete = () => {
-		deleteSnippet.dispatch({ id: parseInt(this.state.id, 10) });
+		deleteSnippet.dispatch({ id: this.state.id });
 	}
 
 	render() {

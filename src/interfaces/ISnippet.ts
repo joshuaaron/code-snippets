@@ -1,5 +1,5 @@
 export interface ISnippet {
-	id: number;
+	id: string;
 	title: string;
 	content?: string;
 	authorFirstName?: string;

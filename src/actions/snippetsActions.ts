@@ -1,29 +1,29 @@
 import { defineAction } from '../helpers/defineAction';
+import { WithFirestoreProps } from 'react-redux-firebase';
+import { ISnippet } from 'src/interfaces';
 
 export const addSnippet = defineAction<{
   title: string,
-  id: number;
+  id: string;
 }>('ADD_SNIPPET');
 
 export const deleteSnippet = defineAction<{
-  id: number,
+  id: string,
 }>('DELETE_SNIPPET');
 
-export const createSnippet = (project: any) => (dispatch: any, getState: any, { getFirebase, getFirestore }: { getFirebase: any, getFirestore: any}) => {
-  // take the project and add it to the database before we dispatch an action
-  // initialize the getFirestore
-  const firestore = getFirestore();
-
-  // access the collection and add the document 
-  firestore.collection('snippets').add({ 
-    ...project, // (project.title, project.content as this.state gets passed in
-    authorFirstName: 'Josh',
-    authorLastName: 'Reynolds',
-    authorId: 12345,
-    createdAt: new Date()
-  }).then(() => {
-    dispatch({ type: 'CREATE_SNIPPET', project })
-  }).catch((error: any) => {
-    dispatch({ type: 'CREATE_ERROR', error })
-  })
+export const createSnippet = (snippet: any, firestore: any) => (dispatch: any) => {
+  firestore
+    .collection('snippets')
+      .add({
+        ...snippet, // (project.title, project.content as this.state gets passed in
+        authorFirstName: 'Josh',
+        authorLastName: 'Reynolds',
+        authorId: 12345,
+        createdAt: new Date()
+      })
+      .then(() => {
+        dispatch({ type: 'CREATE_SNIPPET', payload: snippet })
+      }).catch((error: any) => {
+       dispatch({ type: 'CREATE_ERROR', error })
+      });
 }

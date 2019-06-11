@@ -11,10 +11,9 @@ interface IStateProps {
 	snippets: ISnippet[];
 }
 
-const mapStateToProps = (state: any): IStateProps => {
-	console.log(state)
+const mapStateToProps = (state: IStore): IStateProps => {
 	return {
-		snippets: state.snippets
+		snippets: state.firestore.ordered.snippets
 	}
 }
 
@@ -37,6 +36,6 @@ const Container = styled('div')({
 })
 
 export default compose<any>(
-	firestoreConnect(['snippets']),
 	connect(mapStateToProps),
+	firestoreConnect(['snippets']),
 )(Dashboard);

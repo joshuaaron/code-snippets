@@ -8,7 +8,7 @@ const initState = [
 const snippetsTest = (state = initState, action: any) => {
   switch(action.type) {
     case 'CREATE_SNIPPET':
-      console.log('created: ', action.project);
+      console.log('created: ', action.payload);
       return state;
     case 'CREATE_ERROR': 
       console.log('error ', action.error);

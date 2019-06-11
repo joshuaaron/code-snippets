@@ -1,10 +1,26 @@
 import React from 'react';
 import { IRouteProps } from '../../routes';
+import { IStore, ISnippet } from '../../interfaces';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 interface IProps {}
+interface IStateProps {
+	snippet?: ISnippet;
+}
+
+const mapStateToProps = (state: IStore, ownProps: IProps & IRouteProps): IStateProps => {
+	const { id } = ownProps.match.params
+	const snippet: ISnippet[] = state.firestore.ordered.snippets;
+	return {
+		snippet: snippet ? snippet[id as any] : undefined
+	}
+}
 
 const SnippetDetails = (props: IProps & IRouteProps) => {
 	const { id } = props.match.params;
+	console.log({ props });
 	return (
 		<div className="container">
 			<div className="card">
@@ -17,4 +33,7 @@ const SnippetDetails = (props: IProps & IRouteProps) => {
 	)
 }
 
-export default SnippetDetails;
+export default compose<any>(
+	firestoreConnect(['snippets']),
+	connect(mapStateToProps),
+)(SnippetDetails);

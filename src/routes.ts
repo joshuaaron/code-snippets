@@ -3,7 +3,7 @@ import Categories from './pages/Categories';
 import CreateSnippet from './pages/CreateSnippet';
 import CreateNew from './pages/CreateNew';
 import AllPosts from './pages/AllPosts';
-import SnippetDetails from './components/snippets/SnippetDetails';
+import SnippetDetails from './components/Snippets/SnippetDetails';
 import { RouteComponentProps } from 'react-router-dom';
 import Signin from './auth/Signin';
 import SignUp from './auth/SignUp';
@@ -40,10 +40,10 @@ export const routes: IRoute[] = [
 		exact: true,
 		component: AllPosts
 	},
-	// {
-	// 	path: '/posts/:id', 
-	// 	component: SnippetDetails
-	// },
+	{
+		path: '/posts/:id', 
+		component: SnippetDetails
+	},
 	{
 		path: '/signin',
 		component: Signin

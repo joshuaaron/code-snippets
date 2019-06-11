@@ -1,70 +1,55 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useCallback } from 'react';
+//@ts-ignore
+import { useSelector, useDispatch } from "react-redux";
 import { createSnippet } from '../actions/snippetsActions';
-interface IProps {
-}
+//@ts-ignore
+import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
+import { IStore } from 'src/interfaces';
 
-interface IStateProps {
-  createSnippet: (project: any) => void;
-}
+const CreateNew = (props: any) => {
+	const firestore = useFirestore(); // gets the firestore instance to pass to actions
+	const dispatch = useDispatch(); // 
 
-class CreateSnippet extends Component<IProps & IStateProps> {
-	state = {
-		title: '',
-		content: '',
-	}
+	// connect and get state from redux store:
+	useFirestoreConnect('snippets');
+	const snips = useSelector((state: IStore) => state.firestore.ordered.snippets);
+	
+	console.log({ snips });
 
-	handleTitleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-		this.setState({
-			[target.id]: target.value
-		})
-	}
+	const [snippet, setSnippet] = useState({ title: '', content: '' });
 
-	handleContentChange = ({ target}: React.ChangeEvent<HTMLTextAreaElement>) => {
-		this.setState({
-			[target.id]: target.value
-		})
-	}
+	const addSnippet = useCallback(
+		snippet => dispatch(createSnippet(snippet, firestore)),
+		[firestore]
+	);
 
-	handleSubmit = (e: React.FormEvent) => {
+	const handleChange = (e: any) => {
+		setSnippet({ ...snippet, [e.target.id]: e.target.value });
+	};
+
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		this.props.createSnippet(this.state)
-	}
+		if (snippet.title.trim() === "" || snippet.content.trim() === "") return;
+		addSnippet(snippet);
+	};
 
-	render() {
-		return (
-			<div>
-				<form onSubmit={this.handleSubmit}>
-					<h5>Sign Up</h5>
-					<div className="field">
-						<label htmlFor="title">Title</label>
-						<input type="text" id="title" onChange={this.handleTitleChange} />
-					</div>
-					<hr/>
-					<div className="field">
-						<label htmlFor="content">Content</label>
-						<textarea id="content" onChange={this.handleContentChange} />
-					</div>
-					<button type='submit'>Create</button>
-				</form>
-			</div>
-		);
-	}
+	return (
+		<div>
+			<form onSubmit={handleSubmit}>
+				<h5>Sign Up</h5>
+				<div className="field">
+					<label htmlFor="title">Title</label>
+					<input type="text" id="title" onChange={handleChange} />
+				</div>
+				<hr/>
+				<div className="field">
+					<label htmlFor="content">Content</label>
+					<textarea id="content" onChange={handleChange} />
+				</div>
+				<button type='submit'>Create</button>
+			</form>
+		</div>
+	);
 }
 
-const mapDispatchToProps = (dispatch: any) => ({ createSnippet: (project: any) => dispatch(createSnippet(project))})
-
-export default connect(null, mapDispatchToProps)(CreateSnippet);
-
-
-/**
-import { push } from 'connected-react-router'
-
-// in component render:
-onClick={() => {
-  props.push('/home');
-}}
-
-// connect the action:
-export default connect(null, { push })(Component);
- */
+export default CreateNew;
